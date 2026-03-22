@@ -199,7 +199,7 @@ class AgentLoop:
 │       │                                                                 │
 │       ▼                                                                 │
 │  ┌─────────────────┐                                                    │
-│  │ 模型推理        │ 基于 Level 1 的 Skills Registry 判断意图               │
+│  │  模型推理        │ 基于 Level 1 的 Skills Registry 判断意图               │
 │  │                 │ "code-reviewer: 在代码提交前进行审查..."               │
 │  └────────┬────────┘                                                    │
 │           │ 意图匹配                                                     │
@@ -217,8 +217,8 @@ class AgentLoop:
 │           │                                                             │
 │           ▼                                                             │
 │  ┌─────────────────┐                                                    │
-│  │ 模型按 Skill    │ 读取 "references/style-guide.md"                     │
-│  │ 指令执行        │ 运行 "bash scripts/lint.sh"                          │
+│  │  模型按 Skill    │ 读取 "references/style-guide.md"                     │
+│  │  指令执行        │ 运行 "bash scripts/lint.sh"                          │
 │  │                 │                                                    │
 │  └────────┬────────┘                                                    │
 │           │ Level 3: 按需加载                                            │
