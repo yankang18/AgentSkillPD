@@ -5,7 +5,6 @@ def setup_demo_environment():
     """创建演示用的 Skill 文件结构"""
     home = Path.cwd()
     skills_dir = home / ".claude" / "skills" / "code-reviewer"
-    print(skills_dir)
     skills_dir.mkdir(parents=True, exist_ok=True)
 
     # 写入 SKILL.md
