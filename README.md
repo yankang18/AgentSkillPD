@@ -24,7 +24,7 @@ SkillPD/
 ├── tools.py              # 工具实现：SkillTool / ReadFileTool / BashTool
 ├── llms.py               # LLM 客户端（OpenAI 兼容 API）
 ├── prompts.py            # 系统提示词模板
-├── skill_env.py          # 演示环境初始化
+├── skill_env.py          # skill示例环境初始化
 ├── .env                  # API 配置（仅 agent.py 需要）
 └── .claude/skills/       # Skill 目录
     └── code-reviewer/
