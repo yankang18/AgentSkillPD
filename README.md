@@ -62,7 +62,10 @@ python agent_mock.py
 
 ### 方式二：真实 LLM 交互
 
-需要配置 API Key：
+要求：
+1. 需要配置 API Key。
+2. 使用的大模型需要支持OpenAI的tool调用格式。
+3. 使用的大模型工具解析的能力要足够强。
 
 ```bash
 # 1. 配置环境变量
