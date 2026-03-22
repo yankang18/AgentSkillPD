@@ -8,16 +8,11 @@ from openai import OpenAI
 class LLMClient(object):
 
     def __init__(self):
-
         load_dotenv()
         api_key = os.getenv("OPENAI_API_KEY")
         model_name = os.getenv("MODEL_ID")
         base_url = os.getenv("BASE_URL")
         self.client = OpenAI(api_key=api_key, base_url=base_url)
-        # models = self.client.models.list()
-        # model_name = models.data[0].id
-
-        print(f"save_model_name : {model_name}")
         self.model_name = model_name
 
     def inference(self, messages, system_prompt, tool_schema):

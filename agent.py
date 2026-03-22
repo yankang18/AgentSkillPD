@@ -152,13 +152,14 @@ class AgentLoop:
         print_info(f"\n[Token 消耗: 约 {len(system_prompt)} 字符（仅元数据）]")
 
         tool_schema = self._get_tool_schema()
-        print(f"tool_schema: \n {json.dumps(tool_schema, ensure_ascii=False, indent=4)}")
+        # print(f"tool_schema: \n {json.dumps(tool_schema, ensure_ascii=False, indent=4)}")
 
         messages: list[dict] = []
 
         while True:
             # --- Step 1: 获取用户输入 ---
             try:
+                # 输入"用户请求代码审查"观察效果
                 user_input = input(colored_prompt()).strip()
             except (KeyboardInterrupt, EOFError):
                 print(f"\n{DIM}再见.{RESET}")
@@ -245,14 +246,5 @@ if __name__ == "__main__":
     registry = SkillRegistry(skills_dir)
     agent = AgentLoop(registry)
 
-    # 运行示例：用户请求代码审查
+    # 运行示例
     agent.run()
-    #
-    # print("\n" + "=" * 80)
-    # print("对比：如果没有渐进披露，系统提示词需要包含所有 Skill 的完整内容")
-    # print(f"当前 Skills 数量: {len(registry._skills)}")
-    # print(f"Level 1 披露大小: ~{len(registry.get_registry_prompt())} 字符")
-    #
-    # total_content = sum(len(s.content) for s in registry._skills.values())
-    # print(f"若全量加载需: ~{total_content} 字符")
-    # print(f"节省比例: {(1 - len(registry.get_registry_prompt()) / total_content) * 100:.1f}%")
