@@ -73,8 +73,9 @@ cp .env.example .env
 python agent.py
 ```
 
-启动后进入交互式会话，输入 `帮我审查一下刚才提交的代码` 会加载code-reviewer/SKILL.md。
-启动后进入交互式会话，输入 `quit`/`exit` 退出。
+启动后进入交互式会话，
+- 输入 `帮我审查一下刚才提交的代码` 会加载code-reviewer/SKILL.md。
+- 输入 `quit`/`exit` 退出。
 
 ## 创建 Skill
 
