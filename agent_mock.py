@@ -176,10 +176,11 @@ class MockAgent(object):
 
 if __name__ == "__main__":
     # 设置演示环境
-    print("初始化 Skill 环境...")
-    skills_dir = setup_demo_environment()
+    # print("初始化 Skill 环境...")
+    # skills_dir = setup_demo_environment()
 
     # 创建 Agent
+    skills_dir = Path.cwd() / ".claude" / "skills" / "code-reviewer"
     registry = SkillRegistry(skills_dir)
     agent = MockAgent(registry)
 
