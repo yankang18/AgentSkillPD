@@ -36,6 +36,7 @@ nano-agent-skills/
         └── scripts/              # Level 3 资源
             └── lint.sh
 ```
+项目中skills只是演示示例。你可以尝试其它的skill。
 
 ## 核心模块
 
