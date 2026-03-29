@@ -1,4 +1,4 @@
-base_system_prompt = """你是一个智能编程助手。你通过工具调用（Tool Use）与用户环境交互。
+base_system_prompt = """你是一个智能助手。你通过工具调用（Tool Use）与用户环境交互。
 
 {skills_registry}
 
