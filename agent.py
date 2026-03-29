@@ -150,9 +150,6 @@ class AgentLoop:
         print_info(f"system_prompt:\n{system_prompt}")
         print_info(f"\n[Token 消耗: 约 {len(system_prompt)} 字符（仅元数据）]")
 
-        tool_schema = self._get_tool_schema()
-        # print(f"tool_schema: \n {json.dumps(tool_schema, ensure_ascii=False, indent=4)}")
-
         messages: list[dict] = []
 
         while True:
