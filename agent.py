@@ -4,7 +4,6 @@ from typing import Dict, List, Any
 
 from llms import LLMClient
 from prompts import base_system_prompt
-from skill_env import setup_demo_environment
 from skills import SkillRegistry
 from tools import Tool, SkillTool, BashTool, ReadFileTool
 
@@ -20,6 +19,7 @@ RESET = "\033[0m"
 BOLD = "\033[1m"
 
 working_directory: Path = Path.cwd()
+
 
 def colored_prompt() -> str:
     return f"{CYAN}{BOLD}You > {RESET}"
@@ -74,6 +74,9 @@ class AgentLoop:
             "working_directory": working_directory
         }
 
+    def _in_skill_context(self):
+        return "skill_context" in self.agent_context
+
     def _set_skill_context(self, skill_context):
         self.agent_context["skill_context"] = skill_context
 
@@ -100,6 +103,10 @@ class AgentLoop:
             tool_call_id = tool_call["tool_call_id"]
 
             if func_name.upper() == "SKILL":
+                print_info("\n" + "=" * 80)
+                print_info("Step 2: 模型基于用户输入加载匹配到的技能（Skill）【Level 2】")
+                print_info("=" * 80)
+
                 skill_tool = self.tools["Skill"]
                 tool_result = skill_tool.execute(**arguments)
                 exec_status = tool_result["status"]
@@ -131,6 +138,11 @@ class AgentLoop:
 
             else:
                 # 执行工具
+                if self._in_skill_context():
+                    print_info("\n" + "=" * 80)
+                    print_info(f"Step 3: 执行{self.agent_context['skill_context']['skill_name']}工具的资源或者脚本【Level 3】")
+                    print_info("=" * 80)
+
                 print_info(f"调用工具: {func_name}")
                 print_info(f"参数: {arguments}")
                 print_info(f"调用ID: {tool_call_id}")
@@ -150,9 +162,6 @@ class AgentLoop:
     def run(self):
         """运行 Agent Loop，展示渐进披露全过程"""
 
-        # ---------------------------------------------
-        # Level 1
-        # ---------------------------------------------
         print_info("\n" + "=" * 80)
         print_info("Step 1: 启动加载SKILL元数据【Level 1】")
         print_info("=" * 80)
@@ -190,13 +199,6 @@ class AgentLoop:
             # 模型可能连续调用多个工具才最终给出文本回复.
             # 用 while True 循环, 直到 stop_reason != "tool_calls"
             while True:
-
-                # ---------------------------------------------
-                # Level 2
-                # ---------------------------------------------
-                print_info("\n" + "=" * 80)
-                print_info("Step 2: 模型基于用户输入和SKILL元数据判断意图【Level 2】")
-                print_info("=" * 80)
 
                 llm_response = self._model_inference(messages)
                 print("=" * 80 + ">")
@@ -239,6 +241,7 @@ class AgentLoop:
                     if content:
                         print_assistant(content)
                     break
+
 
 if __name__ == "__main__":
     # 设置演示环境
