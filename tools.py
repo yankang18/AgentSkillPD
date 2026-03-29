@@ -3,6 +3,14 @@ from typing import Dict, Any
 
 from skills import SkillRegistry
 
+DIM = "\033[2m"
+RESET = "\033[0m"
+
+
+def print_tool(name: str, detail: str) -> None:
+    """打印工具调用信息."""
+    print(f"  {DIM}[tool: {name}] {detail}{RESET}")
+
 
 class Tool:
     """工具基类"""
@@ -23,7 +31,7 @@ class Tool:
 
         self.context = {}
 
-    def set_context(self, context:Dict[str, Any]):
+    def set_context(self, context: Dict[str, Any]):
         self.context = context
 
     def execute(self, **kwargs) -> Dict[str, Any]:
@@ -132,7 +140,15 @@ class BashTool(Tool):
             description: str = ""
     ) -> Dict[str, Any]:
         import subprocess
+        dangerous = ["rm -rf /", "sudo", "shutdown", "reboot", "> /dev/", "mkfs", "> /dev/sd", "dd if="]
+        for pattern in dangerous:
+            if pattern in command:
+                return {
+                    "status": "failed",
+                    "message": f"Error: Refused to run dangerous command containing '{pattern}'"
+                }
         try:
+            print_tool("bash", command)
             result = subprocess.run(
                 command,
                 shell=True,
